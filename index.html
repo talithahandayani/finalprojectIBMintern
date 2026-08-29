@@ -25,27 +25,38 @@ body{font-family:-apple-system,"Segoe UI",system-ui,sans-serif;font-size:14px;li
 .sec-title{font-size:12px;font-weight:700;color:#374151;letter-spacing:.06em;text-transform:uppercase;margin-bottom:12px;padding-left:12px;border-left:3px solid #7c3aed}
 
 .kpi-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:12px}
-.kpi{background:#fff;border-radius:10px;padding:14px 16px;position:relative}
-.kpi-lbl{font-size:11px;color:#57606a;margin-bottom:2px}
-.kpi-val{font-size:24px;font-weight:700;color:#1f2328;line-height:1.1}
+.kpi{border-radius:12px;padding:16px 18px;position:relative;transition:box-shadow .18s,transform .18s;overflow:hidden}
+.kpi.clickable{cursor:pointer}
+.kpi.clickable:hover{box-shadow:0 6px 20px rgba(0,0,0,.15);transform:translateY(-3px)}
+.kpi.kpi-active{outline:2.5px solid rgba(255,255,255,.9);outline-offset:2px;box-shadow:0 6px 22px rgba(0,0,0,.22)}
+
+/* Per-card color themes */
+.kpi-kp{background:linear-gradient(135deg,#ff6b35 0%,#f7931e 100%)}
+.kpi-cn{background:linear-gradient(135deg,#11998e 0%,#38ef7d 100%)}
+.kpi-dk{background:linear-gradient(135deg,#e74c3c 0%,#c0392b 100%)}
+.kpi-x{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%)}
+.kpi-li{background:linear-gradient(135deg,#0072b1 0%,#00a0dc 100%)}
+
+.kpi-lbl{font-size:11px;color:rgba(255,255,255,.82);margin-bottom:2px;font-weight:500}
+.kpi-val{font-size:26px;font-weight:800;color:#fff;line-height:1.1;text-shadow:0 1px 3px rgba(0,0,0,.15)}
 .kpi-chg{font-size:11px;font-weight:600;margin-top:3px}
-.kpi-chg.up{color:#16a34a}.kpi-chg.down{color:#dc2626}.kpi-chg.neu{color:#57606a}
-.kpi-prev{font-size:12px;color:#57606a;margin-top:2px}
-.kpi-prev b{color:#1f2328}
-.kpi-ico{position:absolute;top:18px;right:18px;width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center}
-.ico-blue{background:#eff6ff}.ico-purple{background:#f5f3ff}.ico-green{background:#f0fdf4}.ico-orange{background:#fff7ed}
-.kpi-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
-.ktag{border-radius:12px;padding:2px 9px;font-size:11px;font-weight:500}
-.ktag-x{background:#e0f7ff;color:#0369a1}
-.ktag-li{background:#eff6ff;color:#1d4ed8}
-.ktag-dk{background:#fef2f2;color:#dc2626}
-.ktag-kp{background:#fff7ed;color:#c2410c}
-.ktag-cn{background:#f0fdf4;color:#15803d}
+.kpi-chg.up{color:rgba(255,255,255,.9)}.kpi-chg.down{color:rgba(255,255,255,.9)}.kpi-chg.neu{color:rgba(255,255,255,.7)}
+.kpi-prev{font-size:12px;color:rgba(255,255,255,.7);margin-top:2px}
+.kpi-prev b{color:#fff}
+.kpi-ico{position:absolute;top:14px;right:14px;width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.2);backdrop-filter:blur(4px)}
+.ico-blue{background:rgba(255,255,255,.2)}.ico-purple{background:rgba(255,255,255,.2)}.ico-green{background:rgba(255,255,255,.2)}.ico-orange{background:rgba(255,255,255,.2)}
+.kpi-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
+.ktag{border-radius:20px;padding:3px 10px;font-size:11px;font-weight:600;background:rgba(255,255,255,.22);color:#fff;border:1px solid rgba(255,255,255,.3)}
+.ktag-x{background:rgba(255,255,255,.22);color:#fff;border:1px solid rgba(255,255,255,.3)}
+.ktag-li{background:rgba(255,255,255,.22);color:#fff;border:1px solid rgba(255,255,255,.3)}
+.ktag-dk{background:rgba(255,255,255,.22);color:#fff;border:1px solid rgba(255,255,255,.3)}
+.ktag-kp{background:rgba(255,255,255,.22);color:#fff;border:1px solid rgba(255,255,255,.3)}
+.ktag-cn{background:rgba(255,255,255,.22);color:#fff;border:1px solid rgba(255,255,255,.3)}
 
 .two-col{display:grid;grid-template-columns:1fr 420px;gap:12px;margin-bottom:12px}
 .two-col-ch{display:grid;grid-template-columns:400px 1fr;gap:12px;margin-bottom:12px}
-.card{background:#fff;border-radius:10px;padding:20px}
-.card-title{font-size:11px;font-weight:700;color:#374151;letter-spacing:.07em;text-transform:uppercase;margin-bottom:14px}
+.card{background:#fff;border-radius:10px;padding:14px 16px}
+.card-title{font-size:11px;font-weight:700;color:#374151;letter-spacing:.07em;text-transform:uppercase;margin-bottom:10px}
 
 .cat-item{margin-bottom:11px}
 .cat-hd{display:flex;justify-content:space-between;font-size:13px;margin-bottom:3px}
@@ -53,19 +64,20 @@ body{font-family:-apple-system,"Segoe UI",system-ui,sans-serif;font-size:14px;li
 .bar-track{background:#f0f2f5;border-radius:4px;height:8px;overflow:hidden}
 .bar-fill{height:8px;border-radius:4px}
 
-.three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px}
+.three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px;align-items:stretch}
+.three-col>.card{display:flex;flex-direction:column}
 
-.donut-area{display:flex;align-items:center;gap:24px;margin-bottom:14px}
+.donut-area{display:flex;align-items:center;gap:14px;margin-bottom:10px}
 .dl{list-style:none}
-.dl li{display:flex;align-items:center;gap:8px;margin-bottom:12px;font-size:14px}
-.dl-dot{width:13px;height:13px;border-radius:50%;flex-shrink:0}
-.dl-lbl{color:#57606a;flex:1;min-width:60px}
-.dl-pct{font-weight:700;font-size:15px}
+.dl li{display:flex;align-items:center;gap:7px;margin-bottom:7px;font-size:13px}
+.dl-dot{width:11px;height:11px;border-radius:50%;flex-shrink:0}
+.dl-lbl{color:#57606a;flex:1;min-width:50px}
+.dl-pct{font-weight:700;font-size:13px}
 .pct-g{color:#16a34a}.pct-gr{color:#6b7280}.pct-r{color:#dc2626}
 
-.net-box{border:1.5px solid #e5e7eb;border-radius:8px;padding:13px 14px;font-size:12px}
-.net-score-row{display:flex;align-items:baseline;gap:6px;margin-bottom:8px}
-.net-score{font-size:28px;font-weight:700}
+.net-box{border:1.5px solid #e5e7eb;border-radius:8px;padding:12px 14px;font-size:12px;flex:1;display:flex;flex-direction:column;justify-content:space-evenly}
+.net-score-row{display:flex;align-items:baseline;gap:6px;margin-bottom:6px}
+.net-score{font-size:24px;font-weight:700}
 .net-score.good{color:#16a34a}
 .net-label{font-size:11px;color:#57606a}
 .net-badge{font-size:10px;font-weight:600;border-radius:10px;padding:2px 8px;margin-left:4px;vertical-align:middle}
@@ -77,20 +89,20 @@ body{font-family:-apple-system,"Segoe UI",system-ui,sans-serif;font-size:14px;li
 .net-fill{height:10px;border-radius:0 6px 6px 0;position:absolute;left:50%}
 .net-fill.good{background:#16a34a}
 .net-lbls{display:flex;justify-content:space-between;font-size:10px;color:#9ca3af;margin-top:2px}
-.net-desc{font-size:11px;color:#57606a;line-height:1.55;margin-top:10px}
+.net-desc{font-size:11px;color:#57606a;line-height:1.45;margin-top:6px}
 .net-reason{font-size:11px;border-radius:6px;padding:6px 10px;margin-top:7px;line-height:1.5}
 .net-reason.good{background:#f0fdf4;color:#15803d;border-left:3px solid #16a34a}
 .hl-grn{color:#16a34a;font-weight:700}
 
-.psent{margin-bottom:13px}
-.psent-hd{display:flex;justify-content:space-between;font-size:13px;font-weight:600;margin-bottom:3px}
+.psent{margin-bottom:8px}
+.psent-hd{display:flex;justify-content:space-between;font-size:12px;font-weight:600;margin-bottom:3px}
 .psent-cnt{font-size:12px;color:#57606a;font-weight:400}
 .stacked{display:flex;height:8px;border-radius:4px;overflow:hidden;gap:2px}
 .sg{background:#16a34a}.sn{background:#d1d5db}.sr{background:#dc2626}
 .psent-pct{display:flex;gap:12px;margin-top:3px;font-size:11px;color:#57606a}
 .pg{color:#16a34a}.pr{color:#dc2626}
 
-.insight-box{background:#eff6ff;border-radius:8px;padding:10px 13px;font-size:12px;color:#1e40af;line-height:1.55;margin-top:10px}
+.insight-box{background:#eff6ff;border-radius:7px;padding:7px 11px;font-size:11px;color:#1e40af;line-height:1.5;margin-top:8px}
 .insight-box b{color:#1e3a8a}
 
 .ch-donut-area{display:flex;align-items:center;gap:16px;margin-bottom:16px}
@@ -127,20 +139,20 @@ body{font-family:-apple-system,"Segoe UI",system-ui,sans-serif;font-size:14px;li
 .ns-pos{color:#16a34a}.ns-neg{color:#dc2626}.ns-neu{color:#6b7280}
 
 .topic-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px}
-.topic-card{background:#fff;border-radius:10px;padding:18px 20px}
-.topic-hd{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px}
-.topic-title{font-size:15px;font-weight:700;color:#1f2328;line-height:1.3}
-.tbadge{border-radius:12px;padding:3px 10px;font-size:11px;font-weight:700;white-space:nowrap}
+.topic-card{background:#fff;border-radius:10px;padding:13px 15px;display:flex;flex-direction:column}
+.topic-hd{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:3px}
+.topic-title{font-size:14px;font-weight:700;color:#1f2328;line-height:1.3}
+.tbadge{border-radius:12px;padding:2px 9px;font-size:11px;font-weight:700;white-space:nowrap}
 .tb-hot{background:#fef2f2;color:#dc2626}
 .tb-gg{background:#d1fae5;color:#065f46}
 .tb-gy{background:#fef3c7;color:#92400e}
-.topic-cnt{font-size:28px;font-weight:700;color:#1f2328;margin:3px 0 1px}
-.topic-sub{font-size:12px;color:#57606a;margin-bottom:6px}
-.topic-bar{height:5px;border-radius:3px;margin-bottom:7px}
-.topic-kw{font-size:11px;color:#57606a;margin-bottom:7px}
-.topic-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:9px}
-.ttag{border-radius:12px;padding:2px 10px;font-size:11px;background:#f0f2f5;color:#374151}
-.tins{background:#f0f9ff;border-radius:6px;padding:9px 12px;font-size:12px;color:#1e40af;line-height:1.5}
+.topic-cnt{font-size:24px;font-weight:700;color:#1f2328;margin:2px 0 1px}
+.topic-sub{font-size:11px;color:#57606a;margin-bottom:5px}
+.topic-bar{height:4px;border-radius:3px;margin-bottom:6px}
+.topic-kw{font-size:11px;color:#57606a;margin-bottom:6px}
+.topic-tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:7px}
+.ttag{border-radius:12px;padding:2px 9px;font-size:11px;background:#f0f2f5;color:#374151}
+.tins{background:#f0f9ff;border-radius:6px;padding:7px 10px;font-size:11px;color:#1e40af;line-height:1.5}
 .tins.pur{background:#f5f3ff;color:#5b21b6}
 .tins.tea{background:#f0fdfa;color:#134e4a}
 .tins.amb{background:#fffbeb;color:#92400e}
@@ -148,7 +160,7 @@ body{font-family:-apple-system,"Segoe UI",system-ui,sans-serif;font-size:14px;li
 
 .strat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px}
 .strat-card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.07);display:flex;flex-direction:column}
-.strat-card-banner{padding:16px 18px 14px;position:relative}
+.strat-card-banner{padding:12px 16px 10px;position:relative}
 .strat-card.red .strat-card-banner{background:linear-gradient(135deg,#dc2626 0%,#991b1b 100%)}
 .strat-card.blue .strat-card-banner{background:linear-gradient(135deg,#2563eb 0%,#1d4ed8 100%)}
 .strat-card.pur .strat-card-banner{background:linear-gradient(135deg,#7c3aed 0%,#5b21b6 100%)}
@@ -156,7 +168,7 @@ body{font-family:-apple-system,"Segoe UI",system-ui,sans-serif;font-size:14px;li
 .strat-title{font-size:14px;font-weight:700;color:#fff;line-height:1.35;flex:1}
 .b-high{background:rgba(255,255,255,.22);color:#fff;border-radius:20px;padding:3px 10px;font-size:10px;font-weight:700;white-space:nowrap;letter-spacing:.04em}
 .b-med{background:rgba(255,255,255,.22);color:#fff;border-radius:20px;padding:3px 10px;font-size:10px;font-weight:700;white-space:nowrap;letter-spacing:.04em}
-.strat-card-body{padding:14px 18px;flex:1;display:flex;flex-direction:column;gap:10px}
+.strat-card-body{padding:11px 16px;flex:1;display:flex;flex-direction:column;justify-content:space-between}
 .strat-row{display:flex;flex-direction:column;gap:3px}
 .strat-row-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#9ca3af}
 .strat-card.red .strat-row-label{color:#dc2626}
@@ -226,10 +238,11 @@ body{font-family:-apple-system,"Segoe UI",system-ui,sans-serif;font-size:14px;li
 
 <!-- SECTION 1: ARTIKEL COUNT NYATA -->
 <div class="sec-title">1 · Artikel Terverifikasi Per Sumber</div>
+<div style="font-size:11px;color:#9ca3af;margin-bottom:8px;margin-top:-8px">💡 Klik kartu sumber untuk membuka rincian berita &amp; sentimen dari sumber tersebut</div>
 <div class="kpi-grid">
-  <div class="kpi">
-    <div class="kpi-ico ico-blue">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+  <div class="kpi kpi-kp clickable" id="kpi-kp" onclick="selectSource('kp')">
+    <div class="kpi-ico">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
     </div>
     <div class="kpi-lbl">Artikel AI Kompas</div>
     <div class="kpi-val">42</div>
@@ -238,9 +251,9 @@ body{font-family:-apple-system,"Segoe UI",system-ui,sans-serif;font-size:14px;li
       <span class="ktag ktag-kp">kompas.com/edu</span>
     </div>
   </div>
-  <div class="kpi">
-    <div class="kpi-ico ico-green">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+  <div class="kpi kpi-cn clickable" id="kpi-cn" onclick="selectSource('cn')">
+    <div class="kpi-ico">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
     </div>
     <div class="kpi-lbl">Artikel AI CNBC Indonesia</div>
     <div class="kpi-val">24</div>
@@ -249,9 +262,9 @@ body{font-family:-apple-system,"Segoe UI",system-ui,sans-serif;font-size:14px;li
       <span class="ktag ktag-cn">CNBC Siber</span>
     </div>
   </div>
-  <div class="kpi">
-    <div class="kpi-ico ico-orange">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ea580c" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+  <div class="kpi kpi-dk clickable" id="kpi-dk" onclick="selectSource('dk')">
+    <div class="kpi-ico">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
     </div>
     <div class="kpi-lbl">Artikel AI Detik</div>
     <div class="kpi-val">16</div>
@@ -260,9 +273,9 @@ body{font-family:-apple-system,"Segoe UI",system-ui,sans-serif;font-size:14px;li
       <span class="ktag ktag-dk">detik.com/edu</span>
     </div>
   </div>
-  <div class="kpi">
-    <div class="kpi-ico ico-purple">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+  <div class="kpi kpi-x clickable" id="kpi-x" onclick="selectSource('x')">
+    <div class="kpi-ico">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
     </div>
     <div class="kpi-lbl">Tweet AI Indonesia</div>
     <div class="kpi-val">13 tweets</div>
@@ -271,21 +284,25 @@ body{font-family:-apple-system,"Segoe UI",system-ui,sans-serif;font-size:14px;li
       <span class="ktag ktag-x">Akademi Crypto</span>
     </div>
   </div>
-  <div class="kpi">
-    <div class="kpi-ico" style="width:36px;height:36px;border-radius:10px;background:#e8f0fe;display:flex;align-items:center;justify-content:center;flex-shrink:0">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1d4ed8" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="4"/><path d="M7 10v7M7 7v.01M11 17v-4a2 2 0 0 1 4 0v4M11 13v4"/></svg>
+  <div class="kpi kpi-li clickable" id="kpi-li" onclick="selectSource('li')">
+    <div class="kpi-ico">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="4"/><path d="M7 10v7M7 7v.01M11 17v-4a2 2 0 0 1 4 0v4M11 13v4"/></svg>
     </div>
     <div class="kpi-lbl">Post LinkedIn AI</div>
     <div class="kpi-val">17 posts</div>
     <div class="kpi-tags">
-      <span class="ktag" style="background:#e8f0fe;color:#1d4ed8">AI IDR 66tn RI (Google)</span>
-      <span class="ktag" style="background:#e8f0fe;color:#1d4ed8">Manusia &amp; AI Bank Jago</span>
+      <span class="ktag ktag-li">AI IDR 66tn RI (Google)</span>
+      <span class="ktag ktag-li">Manusia &amp; AI Bank Jago</span>
     </div>
   </div>
 </div>
 
-<!-- BERITA NYATA SECTION -->
-<div class="sec-title">2 · Berita AI &amp; Cybersecurity Terverifikasi</div>
+<!-- ═══════════════════════════════════════════════════════════
+     SECTIONS 2 / 3 / 4 — hidden from main dashboard,
+     content is shown inside the source-detail modal
+     ═══════════════════════════════════════════════════════════ -->
+<div id="src-sections-hidden" style="display:none" aria-hidden="true">
+<div class="sec-title" id="sec-berita">2 · Berita AI &amp; Cybersecurity Terverifikasi</div>
 
 <!-- Styles khusus section berita interaktif -->
 <style>
@@ -1061,7 +1078,7 @@ body{font-family:-apple-system,"Segoe UI",system-ui,sans-serif;font-size:14px;li
 </div>
 
 <script>
-// Toggle accordion tanggal
+// Toggle accordion tanggal (used inside modal body)
 function toggleDate(header) {
   const body = header.nextElementSibling;
   const isOpen = header.classList.contains('open');
@@ -1069,59 +1086,12 @@ function toggleDate(header) {
   body.classList.toggle('open', !isOpen);
 }
 
-// Filter berita berdasarkan sumber atau sentimen
-let activeFilter = 'all';
-function filterNews(filter, btn) {
-  // Toggle: klik filter yang sama = kembali ke all
-  if (activeFilter === filter) {
-    filter = 'all';
-  }
-  activeFilter = filter;
-
-  // Update button aktif
-  document.querySelectorAll('.news-filter-btn').forEach(b => b.classList.remove('active'));
-  if (filter === 'all') {
-    document.querySelector('[data-filter="all"]').classList.add('active');
-  } else {
-    btn.classList.add('active');
-  }
-
-  // Filter rows
-  const rows = document.querySelectorAll('.news-row');
-  let visible = 0;
-  rows.forEach(row => {
-    const src = row.dataset.src;
-    const sent = row.dataset.sent;
-    let show = false;
-    if (filter === 'all') show = true;
-    else if (filter === 'kp' || filter === 'dk' || filter === 'cn') show = src === filter;
-    else if (filter === 'pos' || filter === 'neg' || filter === 'neu') show = sent === filter;
-    row.style.display = show ? '' : 'none';
-    if (show) visible++;
-  });
-
-  // Buka semua grup yang punya item visible, tutup yang kosong
-  document.querySelectorAll('.date-group').forEach(group => {
-    const visibleInGroup = Array.from(group.querySelectorAll('.news-row')).some(r => r.style.display !== 'none');
-    const header = group.querySelector('.date-group-header');
-    const body = group.querySelector('.date-group-body');
-    if (visibleInGroup) {
-      group.style.display = '';
-      header.classList.add('open');
-      body.classList.add('open');
-    } else {
-      group.style.display = 'none';
-    }
-  });
-
-  // Update badge count
-  document.getElementById('news-count').textContent = visible + ' berita';
-}
+let activeSourceCard = null; // currently selected KPI card key
 </script>
 
 <!-- X/TWITTER NYATA -->
-<div class="sec-title">3 · X (Twitter)</div>
-<div class="card" style="margin-bottom:12px">
+<div class="sec-title" id="sec-twitter">3 · X (Twitter)</div>
+<div id="twitter-card-src" class="card" style="margin-bottom:12px">
   <div class="card-title">13 Tweet</div>
   <table class="news-table">
     <thead><tr><th>Tanggal</th><th>Akun</th><th>Tweet</th><th>Views</th><th>Likes</th><th>RT</th></tr></thead>
@@ -1252,8 +1222,8 @@ function filterNews(filter, btn) {
 </div>
 
 <!-- SECTION 4: LINKEDIN POSTS -->
-<div class="sec-title">4 · LinkedIn</div>
-<div class="card" style="margin-bottom:12px">
+<div class="sec-title" id="sec-linkedin">4 · LinkedIn</div>
+<div id="linkedin-card-src" class="card" style="margin-bottom:12px">
   <div class="card-title">17 Post</div>
   <table class="news-table">
     <thead><tr><th>Tanggal</th><th>Akun / Profil</th><th>Post</th><th>Views/Reactions</th><th>Comments</th><th>Reposts</th></tr></thead>
@@ -1399,8 +1369,10 @@ function filterNews(filter, btn) {
   <div style="font-size:11px;color:#9ca3af;margin-top:8px">Data real dari LinkedIn MCP — Baris hijau = sangat relevan Indonesia &amp; global AI security. Baris merah = ancaman siber kritis. Post sorted by views/reactions descending.</div>
 </div>
 
+</div><!-- /src-sections-hidden -->
+
 <!-- SECTION 5: SENTIMENT ANALYSIS -->
-<div class="sec-title">5 · Analisis Sentimen</div>
+<div class="sec-title">2 · Analisis Sentimen</div>
 <div class="three-col">
   <!-- UPDATE 21 AGU 2026 Rev.4 — tambah 23 item baru: -->
   <!-- Base (Rev.3): 77 items = 34pos(44%), 19neu(25%), 24neg(31%). Net +13 -->
@@ -1409,33 +1381,32 @@ function filterNews(filter, btn) {
   <!-- New totals: 97 items = 45pos(46%), 21neu(22%), 31neg(32%). Net = 46-32 = +14 -->
   <div class="card">
     <div class="card-title">Sentimen Terverifikasi</div>
-    <div class="donut-area">
-      <svg width="148" height="148" viewBox="0 0 140 140">
+    <!-- TOP HALF: pie chart centered -->
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding-bottom:10px;border-bottom:1px solid #f0f2f5">
+      <svg width="160" height="160" viewBox="0 0 140 140">
         <g transform="rotate(-90 70 70)">
           <circle cx="70" cy="70" r="54" fill="none" stroke="#f0f2f5" stroke-width="22"/>
-          <!-- 42% positif: 42/100 * 339.29 = 142.5 -->
           <circle cx="70" cy="70" r="54" fill="none" stroke="#16a34a" stroke-width="22"
             stroke-dasharray="142.5 339.29" stroke-dashoffset="0"/>
-          <!-- 21% netral: 21/100 * 339.29 = 71.2 -->
           <circle cx="70" cy="70" r="54" fill="none" stroke="#9ca3af" stroke-width="22"
             stroke-dasharray="71.2 339.29" stroke-dashoffset="-142.5"/>
-          <!-- 38% negatif: 38/100 * 339.29 = 128.9 -->
           <circle cx="70" cy="70" r="54" fill="none" stroke="#ef4444" stroke-width="22"
             stroke-dasharray="128.9 339.29" stroke-dashoffset="-213.7"/>
         </g>
         <text x="70" y="65" text-anchor="middle" font-size="18" font-weight="700" fill="#1f2328">42%</text>
         <text x="70" y="82" text-anchor="middle" font-size="11" fill="#57606a">Positif</text>
       </svg>
-      <ul class="dl">
-        <li><div class="dl-dot" style="background:#16a34a"></div><span class="dl-lbl">Positif</span><span class="dl-pct pct-g">42% (47 item)</span></li>
-        <li><div class="dl-dot" style="background:#9ca3af"></div><span class="dl-lbl">Netral</span><span class="dl-pct pct-gr">21% (23 item)</span></li>
-        <li><div class="dl-dot" style="background:#ef4444"></div><span class="dl-lbl">Negatif</span><span class="dl-pct pct-r">38% (42 item)</span></li>
+      <ul class="dl" style="display:flex;gap:14px;margin-top:8px">
+        <li style="margin-bottom:0"><div class="dl-dot" style="background:#16a34a"></div><span class="dl-lbl">Positif</span><span class="dl-pct pct-g">42%</span></li>
+        <li style="margin-bottom:0"><div class="dl-dot" style="background:#9ca3af"></div><span class="dl-lbl">Netral</span><span class="dl-pct pct-gr">21%</span></li>
+        <li style="margin-bottom:0"><div class="dl-dot" style="background:#ef4444"></div><span class="dl-lbl">Negatif</span><span class="dl-pct pct-r">38%</span></li>
       </ul>
     </div>
-    <div class="net-box">
-      <div class="net-score-row">
-        <span class="net-score good">+4</span>
-        <span class="net-label">Net Sentiment Score</span>
+    <!-- BOTTOM HALF: net score box -->
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding-top:10px">
+      <div class="net-score-row" style="margin-bottom:8px">
+        <span class="net-score good" style="font-size:32px">+4</span>
+        <span class="net-label" style="font-size:12px">Net Sentiment Score</span>
         <span class="net-badge good">✅ Moderat-Positif</span>
       </div>
       <div class="net-track">
@@ -1445,7 +1416,21 @@ function filterNews(filter, btn) {
         <div class="net-fill good" style="width:4%"></div>
       </div>
       <div class="net-lbls"><span>-100</span><span>0</span><span>+100</span></div>
-      <div class="net-desc">Dihitung dari 112 item terverifikasi (artikel + tweet + LinkedIn post): <b>42% – 38% = +4</b>.</div>
+      <div class="net-desc" style="margin-top:8px">Dihitung dari <b>112 item</b> terverifikasi: <b>42% – 38% = +4</b>.</div>
+      <div style="display:flex;gap:16px;margin-top:10px;font-size:12px">
+        <div style="flex:1;text-align:center;background:#f0fdf4;border-radius:6px;padding:6px 4px">
+          <div style="font-weight:700;color:#16a34a;font-size:15px">47</div>
+          <div style="color:#57606a;font-size:10px;margin-top:1px">Positif</div>
+        </div>
+        <div style="flex:1;text-align:center;background:#f9fafb;border-radius:6px;padding:6px 4px">
+          <div style="font-weight:700;color:#6b7280;font-size:15px">23</div>
+          <div style="color:#57606a;font-size:10px;margin-top:1px">Netral</div>
+        </div>
+        <div style="flex:1;text-align:center;background:#fef2f2;border-radius:6px;padding:6px 4px">
+          <div style="font-weight:700;color:#dc2626;font-size:15px">42</div>
+          <div style="color:#57606a;font-size:10px;margin-top:1px">Negatif</div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1502,7 +1487,7 @@ function filterNews(filter, btn) {
       </div>
       <div class="psent-pct"><span class="pg">56% pos (10)</span><span>22% netral (4)</span><span class="pr">22% neg (4)</span></div>
     </div>
-    <div class="insight-box" style="margin-top:12px"><b>Insight:</b><ul style="margin:6px 0 0 0;padding-left:18px;line-height:1.7">
+    <div class="insight-box" style="margin-top:8px"><b>Insight:</b><ul style="margin:5px 0 0 0;padding-left:16px;line-height:1.65">
       <li>CNBC: sumber paling negatif (58%) — artikel serangan siber &amp; AI displacement</li>
       <li>Detik: paling positif (67%) — fokus infrastruktur AI RI</li>
       <li>LinkedIn: 56% positif — didorong narasi ekonomi AI Google Indonesia IDR 66tn</li>
@@ -1510,30 +1495,202 @@ function filterNews(filter, btn) {
   </div>
 
   <!-- Top Events -->
-  <div class="card">
-    <div class="card-title">Top 3 Berita Terbesar</div>
-    <div style="display:flex;flex-direction:column;gap:10px">
-      <div style="border-left:3px solid #dc2626;padding:8px 12px;background:#fef2f2;border-radius:0 6px 6px 0;outline:1.5px solid #fecaca">
-        <div style="font-size:11px;color:#dc2626;font-weight:600">21 Agu 2026 — CNBC Indonesia (berita paling viral)</div>
-        <div style="font-weight:700;font-size:13px;color:#dc2626">Pertama di Dunia, Satu Negara Lumpuh Dibobol AI Tanpa Bantuan Manusia — AI Otonom Serang Taiwan: 85 Akun Dibobol, 2.500 Data Dicuri</div>
-        <div style="font-size:12px;color:#374151">AI agen otonom (8 agen paralel) menyerang 21 sistem pemerintah Taiwan tanpa campur tangan manusia — pertama di dunia. Diduga terkait China. Dream (perusahaan AI Israel) mengungkap: "Ini penyerang yang bisa menyusun strategi, belajar, dan menyesuaikan diri sendiri." Sinyal era perang siber otonom dimulai.</div>
+  <div class="card" style="padding:12px 14px">
+    <div class="card-title" style="font-size:11px;margin-bottom:8px">Top 3 Berita Terbesar</div>
+    <div style="display:flex;flex-direction:column;gap:6px;flex:1;justify-content:space-between">
+      <div style="border-left:3px solid #dc2626;padding:8px 10px;background:#fef2f2;border-radius:0 5px 5px 0;outline:1px solid #fecaca;flex:1;display:flex;flex-direction:column;justify-content:center">
+        <div style="font-size:10px;color:#dc2626;font-weight:600;line-height:1.4">21 Agu 2026 — CNBC Indonesia (berita paling viral)</div>
+        <div style="font-weight:700;font-size:12px;color:#dc2626;line-height:1.3;margin-top:2px">Pertama di Dunia, Satu Negara Lumpuh Dibobol AI Tanpa Bantuan Manusia — AI Otonom Serang Taiwan: 85 Akun Dibobol, 2.500 Data Dicuri</div>
+        <div style="font-size:11px;color:#57606a;margin-top:3px;line-height:1.45">AI agen otonom menyerang 21 sistem pemerintah Taiwan tanpa campur tangan manusia — pertama di dunia. Diduga terkait China.</div>
       </div>
-      <div style="border-left:3px solid #16a34a;padding:8px 12px;background:#f0fdf4;border-radius:0 6px 6px 0;outline:1.5px solid #bbf7d0">
-        <div style="font-size:11px;color:#16a34a;font-weight:600">24 Agu 2026 — LinkedIn (Vikram Sinha, CEO Indosat)</div>
-        <div style="font-weight:700;font-size:13px;color:#15803d">UGM–Indosat–NVIDIA AI Technology Center Diluncurkan di Yogyakarta — Indonesia dari Konsumen ke Kreator AI</div>
-        <div style="font-size:12px;color:#374151">CEO Indosat Vikram Sinha: pusat AI pertama UGM+Indosat+NVIDIA di Yogyakarta. ZanKore by Indosat — 200 MW kapasitas NVIDIA DSX H1 2027, target 1 GW. "Indonesia bergerak dari consumer ke creator AI." Viral di komunitas tech RI.</div>
+      <div style="border-left:3px solid #16a34a;padding:8px 10px;background:#f0fdf4;border-radius:0 5px 5px 0;outline:1px solid #bbf7d0;flex:1;display:flex;flex-direction:column;justify-content:center">
+        <div style="font-size:10px;color:#16a34a;font-weight:600;line-height:1.4">24 Agu 2026 — LinkedIn (Vikram Sinha, CEO Indosat)</div>
+        <div style="font-weight:700;font-size:12px;color:#15803d;line-height:1.3;margin-top:2px">UGM–Indosat–NVIDIA AI Technology Center Diluncurkan di Yogyakarta — Indonesia dari Konsumen ke Kreator AI</div>
+        <div style="font-size:11px;color:#57606a;margin-top:3px;line-height:1.45">ZanKore by Indosat — 200 MW kapasitas NVIDIA DSX H1 2027, target 1 GW. Viral di komunitas tech RI.</div>
       </div>
-      <div style="border-left:3px solid #dc2626;padding:8px 12px;background:#fef2f2;border-radius:0 6px 6px 0;outline:1.5px solid #fecaca">
-        <div style="font-size:11px;color:#dc2626;font-weight:600">25 Agu 2026 — Kompas.com (Tren)</div>
-        <div style="font-weight:700;font-size:13px;color:#dc2626">Jutaan Robot Kuasai Pabrik China, Nasib 120 Juta Pekerja Jadi Sorotan</div>
-        <div style="font-size:12px;color:#374151">Otomasi robotik massal di China mengancam 120 juta pekerjaan manufaktur. Beriringan dengan artikel Meta AI (kerja lebih banyak) dan gelombang AI displacement Agu 2026 — narasi kekhawatiran tenaga kerja vs AI meledak di media mainstream Indonesia.</div>
+      <div style="border-left:3px solid #dc2626;padding:8px 10px;background:#fef2f2;border-radius:0 5px 5px 0;outline:1px solid #fecaca;flex:1;display:flex;flex-direction:column;justify-content:center">
+        <div style="font-size:10px;color:#dc2626;font-weight:600;line-height:1.4">25 Agu 2026 — Kompas.com (Tren)</div>
+        <div style="font-weight:700;font-size:12px;color:#dc2626;line-height:1.3;margin-top:2px">Jutaan Robot Kuasai Pabrik China, Nasib 120 Juta Pekerja Jadi Sorotan</div>
+        <div style="font-size:11px;color:#57606a;margin-top:3px;line-height:1.45">Otomasi robotik massal mengancam 120 juta pekerjaan manufaktur — narasi kekhawatiran tenaga kerja vs AI meledak di media Indonesia.</div>
       </div>
     </div>
   </div>
 </div>
 
+<!-- GRAFIK PERBANDINGAN SENTIMEN JULI → AGUSTUS -->
+<div class="card" style="margin-bottom:12px">
+  <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:3px">
+    <div class="card-title" style="margin-bottom:0">Perubahan Sentimen: Juli 2026 → Agustus 2026</div>
+    <span style="font-size:11px;color:#9ca3af;font-weight:400">73 item Juli · 112 item Agustus</span>
+  </div>
+  <p style="font-size:12px;color:#57606a;margin-bottom:14px">Net Sentiment Score turun dari <b style="color:#16a34a">+38</b> (Juli) menjadi <b style="color:#f59e0b">+4</b> (Agustus) — dipicu lonjakan konten siber negatif di CNBC dan Kompas.</p>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+
+    <!-- Kiri: Net Score + Sentimen Keseluruhan -->
+    <div style="display:flex;flex-direction:column;justify-content:space-between">
+      <!-- Net Score comparison -->
+      <div style="display:flex;align-items:stretch;gap:8px;margin-bottom:12px">
+        <div style="flex:1;background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:8px;padding:10px 12px;text-align:center">
+          <div style="font-size:10px;font-weight:700;color:#15803d;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px">Juli 2026</div>
+          <div style="font-size:28px;font-weight:800;color:#15803d;line-height:1">+38</div>
+          <div style="font-size:10px;color:#15803d;margin-top:2px">Net Sentiment</div>
+          <div style="font-size:10px;color:#6b7280;margin-top:4px">73 item · Pos 59% · Neg 21%</div>
+        </div>
+        <div style="display:flex;align-items:center;font-size:18px;color:#9ca3af;flex-shrink:0">→</div>
+        <div style="flex:1;background:#fffbeb;border:1.5px solid #fde68a;border-radius:8px;padding:10px 12px;text-align:center">
+          <div style="font-size:10px;font-weight:700;color:#b45309;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px">Agustus 2026</div>
+          <div style="font-size:28px;font-weight:800;color:#b45309;line-height:1">+4</div>
+          <div style="font-size:10px;color:#b45309;margin-top:2px">Net Sentiment</div>
+          <div style="font-size:10px;color:#6b7280;margin-top:4px">112 item · Pos 42% · Neg 38%</div>
+        </div>
+      </div>
+
+      <!-- Stacked bar: Positif / Netral / Negatif Juli vs Agu -->
+      <div style="flex:1;display:flex;flex-direction:column;justify-content:space-evenly">
+        <div style="font-size:11px;font-weight:700;color:#374151;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Distribusi Sentimen Keseluruhan</div>
+
+        <!-- Juli -->
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:12px;color:#57606a;margin-bottom:3px">
+            <span style="font-weight:600;color:#1f2328">Juli 2026</span>
+            <span>73 item</span>
+          </div>
+          <div style="display:flex;height:22px;border-radius:6px;overflow:hidden;gap:2px">
+            <div style="width:59%;background:#16a34a;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff">59%</div>
+            <div style="width:21%;background:#9ca3af;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff">21%</div>
+            <div style="width:21%;background:#ef4444;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff">21%</div>
+          </div>
+        </div>
+
+        <!-- Agustus -->
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:12px;color:#57606a;margin-bottom:3px">
+            <span style="font-weight:600;color:#1f2328">Agustus 2026</span>
+            <span>112 item</span>
+          </div>
+          <div style="display:flex;height:22px;border-radius:6px;overflow:hidden;gap:2px">
+            <div style="width:42%;background:#16a34a;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff">42%</div>
+            <div style="width:21%;background:#9ca3af;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff">21%</div>
+            <div style="width:38%;background:#ef4444;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff">38%</div>
+          </div>
+        </div>
+
+        <!-- Legenda -->
+        <div style="display:flex;gap:14px;font-size:11px;color:#57606a">
+          <span style="display:flex;align-items:center;gap:5px"><span style="width:10px;height:10px;border-radius:2px;background:#16a34a;display:inline-block"></span>Positif</span>
+          <span style="display:flex;align-items:center;gap:5px"><span style="width:10px;height:10px;border-radius:2px;background:#9ca3af;display:inline-block"></span>Netral</span>
+          <span style="display:flex;align-items:center;gap:5px"><span style="width:10px;height:10px;border-radius:2px;background:#ef4444;display:inline-block"></span>Negatif</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Kanan: Perubahan sentimen positif per sumber (dot-plot) -->
+    <div style="display:flex;flex-direction:column">
+      <div style="font-size:11px;font-weight:700;color:#374151;text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px">Δ Sentimen Positif Per Sumber (Juli → Agustus)</div>
+
+      <!-- helper: each row = sumber, two bars Juli & Agu side by side -->
+      <style>
+        .sent-cmp-row{display:grid;grid-template-columns:62px 1fr;gap:6px;align-items:center;margin-bottom:8px}
+        .sent-cmp-label{font-size:11px;font-weight:600;color:#374151}
+        .sent-cmp-bars{display:flex;flex-direction:column;gap:3px}
+        .sent-cmp-bar-wrap{display:flex;align-items:center;gap:5px}
+        .sent-cmp-bar{height:8px;border-radius:4px;min-width:2px;transition:width .4s}
+        .sent-cmp-month{font-size:9px;color:#9ca3af;width:18px;flex-shrink:0}
+      </style>
+
+      <div class="sent-cmp-row">
+        <span class="sent-cmp-label">Kompas</span>
+        <div class="sent-cmp-bars">
+          <div class="sent-cmp-bar-wrap">
+            <span class="sent-cmp-month">Jul</span>
+            <div class="sent-cmp-bar" style="width:55%;background:#16a34a;opacity:.55"></div>
+            <span style="font-size:9px;color:#6b7280;margin-left:2px">55%</span>
+          </div>
+          <div class="sent-cmp-bar-wrap">
+            <span class="sent-cmp-month">Agu</span>
+            <div class="sent-cmp-bar" style="width:42%;background:#16a34a"></div>
+            <span style="font-size:9px;color:#6b7280;margin-left:2px">42%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sent-cmp-row">
+        <span class="sent-cmp-label">CNBC</span>
+        <div class="sent-cmp-bars">
+          <div class="sent-cmp-bar-wrap">
+            <span class="sent-cmp-month">Jul</span>
+            <div class="sent-cmp-bar" style="width:60%;background:#16a34a;opacity:.55"></div>
+            <span style="font-size:9px;color:#6b7280;margin-left:2px">60%</span>
+          </div>
+          <div class="sent-cmp-bar-wrap">
+            <span class="sent-cmp-month">Agu</span>
+            <div class="sent-cmp-bar" style="width:29%;background:#dc2626"></div>
+            <span style="font-size:9px;color:#6b7280;margin-left:2px">29%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sent-cmp-row">
+        <span class="sent-cmp-label">Detik</span>
+        <div class="sent-cmp-bars">
+          <div class="sent-cmp-bar-wrap">
+            <span class="sent-cmp-month">Jul</span>
+            <div class="sent-cmp-bar" style="width:67%;background:#16a34a;opacity:.55"></div>
+            <span style="font-size:9px;color:#6b7280;margin-left:2px">67%</span>
+          </div>
+          <div class="sent-cmp-bar-wrap">
+            <span class="sent-cmp-month">Agu</span>
+            <div class="sent-cmp-bar" style="width:67%;background:#16a34a"></div>
+            <span style="font-size:9px;color:#6b7280;margin-left:2px">67%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sent-cmp-row">
+        <span class="sent-cmp-label">X (Twitter)</span>
+        <div class="sent-cmp-bars">
+          <div class="sent-cmp-bar-wrap">
+            <span class="sent-cmp-month">Jul</span>
+            <div class="sent-cmp-bar" style="width:64%;background:#16a34a;opacity:.55"></div>
+            <span style="font-size:9px;color:#6b7280;margin-left:2px">64%</span>
+          </div>
+          <div class="sent-cmp-bar-wrap">
+            <span class="sent-cmp-month">Agu</span>
+            <div class="sent-cmp-bar" style="width:62%;background:#16a34a"></div>
+            <span style="font-size:9px;color:#6b7280;margin-left:2px">62%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sent-cmp-row">
+        <span class="sent-cmp-label">LinkedIn</span>
+        <div class="sent-cmp-bars">
+          <div class="sent-cmp-bar-wrap">
+            <span class="sent-cmp-month">Jul</span>
+            <div class="sent-cmp-bar" style="width:71%;background:#16a34a;opacity:.55"></div>
+            <span style="font-size:9px;color:#6b7280;margin-left:2px">71%</span>
+          </div>
+          <div class="sent-cmp-bar-wrap">
+            <span class="sent-cmp-month">Agu</span>
+            <div class="sent-cmp-bar" style="width:56%;background:#16a34a"></div>
+            <span style="font-size:9px;color:#6b7280;margin-left:2px">56%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Insight box — fills remaining space -->
+      <div style="margin-top:auto;padding-top:10px;background:#fff7ed;border-radius:8px;padding:10px 12px;font-size:12px;color:#92400e;line-height:1.6;border-left:3px solid #f59e0b">
+        <b>⚠ Penyebab penurunan:</b> Lonjakan berita serangan siber AI (AI Otonom Taiwan, ToxicPanda 2.0, Zoom exploit) mendorong sentimen negatif CNBC dari <b>20% → 58%</b>. Detik satu-satunya sumber yang stabil.
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
 <!-- SECTION 6: TOPIC BREAKDOWN -->
-<div class="sec-title">6 · Topik Dominan</div>
+<div class="sec-title">3 · Topik Dominan</div>
 <div class="topic-grid">
   <!-- Cybersecurity & Threats: #1 by count 23 sumber -->
   <div class="topic-card">
@@ -1550,7 +1707,6 @@ function filterNews(filter, btn) {
       <li>Serangan AI otonom pertama di dunia (Taiwan, 21 Agu) → headline global</li>
       <li>ToxicPanda 2.0 target 349 institusi keuangan</li>
       <li>Indonesia waspada: data center #5 ASEAN</li>
-      <li>Net Sentiment CNBC turun ke 58% negatif</li>
     </ul></div>
   </div>
   <!-- GenAI & AI Agentic: 19 sumber -->
@@ -1579,7 +1735,7 @@ function filterNews(filter, btn) {
     <div class="topic-sub">CNBC (5) · Kompas (2) · X (1)</div>
     <div class="topic-bar" style="width:62%;background:#16a34a"></div>
     <div class="topic-tags"><span class="ttag">Telkom OCA</span><span class="ttag">Airlangga</span><span class="ttag">SATUSEHAT</span><span class="ttag">Perpusnas AI</span></div>
-    <div class="tins tea"><b>Insight:</b><ul style="margin:6px 0 0 0;padding-left:18px;line-height:1.7">
+    <div class="tins tea" style="margin-top:auto"><b>Insight:</b><ul style="margin:6px 0 0 0;padding-left:18px;line-height:1.7">
       <li>HUT RI ke-81 menempatkan AI dalam narasi kebangsaan</li>
       <li>Kepala Perpusnas RI (TIME 100 AI) bicara literasi vs penyalahgunaan AI</li>
       <li>Narasi "AI vs nilai kemanusiaan" mulai muncul di level pemerintah Indonesia</li>
@@ -1636,7 +1792,7 @@ function filterNews(filter, btn) {
 </div>
 
 <!-- SECTION 7: STRATEGY -->
-<div class="sec-title">7 · Strategic Marketing Opportunities</div>
+<div class="sec-title">4 · Strategic Marketing Opportunities</div>
 <div class="strat-grid">
   <div class="strat-card red">
     <div class="strat-card-banner">
@@ -1696,7 +1852,7 @@ function filterNews(filter, btn) {
       </div>
       <div class="strat-row">
         <div class="strat-row-label">✍️ Konten</div>
-        <div class="strat-konten">"AI Reskilling Roadmap Indonesia 2026: dari Displacement ke Opportunity"<br><span style="font-style:normal;font-size:11px;color:#6b7280">Quick win: webinar gratis "Karier AI untuk Gen Z Indonesia"</span></div>
+        <div class="strat-konten">"AI Reskilling Roadmap Indonesia 2026: dari Displacement ke Opportunity"</div>
       </div>
       <div class="strat-row">
         <div class="strat-row-label">🎯 Target</div>
@@ -1707,7 +1863,7 @@ function filterNews(filter, btn) {
 </div>
 
 <!-- SECTION 8: IBM SOLUTION RECOMMENDATIONS -->
-<div class="sec-title">8 · Rekomendasi Solusi IBM — Disesuaikan dengan Strategic Marketing Opportunities</div>
+<div class="sec-title">5 · Rekomendasi Solusi IBM — Disesuaikan dengan Strategic Marketing Opportunities</div>
 
 <style>
 /* IBM Section 8 — Redesigned */
@@ -1721,7 +1877,7 @@ function filterNews(filter, btn) {
 .ibm-opp-priority{font-size:10px;font-weight:700;border-radius:20px;padding:3px 10px;white-space:nowrap}
 .pri-high{background:rgba(255,255,255,.22);color:#fff}
 .pri-med{background:rgba(255,255,255,.18);color:#fde68a}
-.ibm-opp-body{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.ibm-opp-body{display:grid;grid-template-columns:2fr 5fr;gap:0}
 .ibm-opp-context{padding:14px 20px;border-right:1px solid #f0f2f5;background:#fafbfc}
 .ibm-opp-context-label{font-size:10px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
 .ibm-opp-context-text{font-size:12px;color:#374151;line-height:1.65}
@@ -1895,8 +2051,8 @@ function filterNews(filter, btn) {
 </div>
 
 <div class="footer">
-  Data real hasil crawl langsung · <span>Periode 1–19 Agustus 2026 · Dicrawl: 14, 18 &amp; 19 Agustus 2026</span> · Sumber: kompas.com, cnbcindonesia.com, detik.com, X/Twitter, LinkedIn<br>
-  <span style="font-size:11px;color:#c4c9d1">Made with IBM Bob — Zero Dummy Data · 83 item terverifikasi (56 artikel + 12 tweet + 14 LinkedIn + 1 alert) · Update 19 Agu Rev.3: +6 artikel Kompas baru (16–19 Agu)</span>
+  Data real hasil crawl langsung · Sumber: kompas.com, cnbcindonesia.com, detik.com, X/Twitter, LinkedIn<br>
+  <span style="font-size:11px;color:#c4c9d1">Made with IBM Bob — Zero Dummy Data</span>
 </div>
 </div><!-- end #period-agu -->
 
@@ -1912,11 +2068,12 @@ function filterNews(filter, btn) {
 </div>
 
 <!-- SECTION 1 JULI: KPI -->
-<div class="sec-title">1 · Artikel Terverifikasi Per Sumber — 1–31 Juli 2026</div>
+<div class="sec-title">1 · Artikel Terverifikasi Per Sumber</div>
+<div style="font-size:11px;color:#9ca3af;margin-bottom:8px;margin-top:-8px">💡 Klik kartu sumber untuk membuka rincian berita &amp; sentimen dari sumber tersebut</div>
 <div class="kpi-grid">
-  <div class="kpi">
-    <div class="kpi-ico ico-blue">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+  <div class="kpi kpi-kp clickable" id="kpi-jul-kp" onclick="selectSource('kp','jul')">
+    <div class="kpi-ico">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
     </div>
     <div class="kpi-lbl">Artikel AI Kompas</div>
     <div class="kpi-val">47</div>
@@ -1925,9 +2082,9 @@ function filterNews(filter, btn) {
       <span class="ktag ktag-kp">money.kompas.com</span>
     </div>
   </div>
-  <div class="kpi">
-    <div class="kpi-ico ico-green">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+  <div class="kpi kpi-cn clickable" id="kpi-jul-cn" onclick="selectSource('cn','jul')">
+    <div class="kpi-ico">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
     </div>
     <div class="kpi-lbl">Artikel AI CNBC Indonesia</div>
     <div class="kpi-val">5</div>
@@ -1935,9 +2092,9 @@ function filterNews(filter, btn) {
       <span class="ktag ktag-cn">CNBC Tech/AI</span>
     </div>
   </div>
-  <div class="kpi">
-    <div class="kpi-ico ico-orange">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ea580c" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+  <div class="kpi kpi-dk clickable" id="kpi-jul-dk" onclick="selectSource('dk','jul')">
+    <div class="kpi-ico">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
     </div>
     <div class="kpi-lbl">Artikel AI Detik</div>
     <div class="kpi-val">3</div>
@@ -1945,9 +2102,9 @@ function filterNews(filter, btn) {
       <span class="ktag ktag-dk">inet.detik.com</span>
     </div>
   </div>
-  <div class="kpi">
-    <div class="kpi-ico ico-purple">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+  <div class="kpi kpi-x clickable" id="kpi-jul-x" onclick="selectSource('x','jul')">
+    <div class="kpi-ico">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
     </div>
     <div class="kpi-lbl">Tweet AI Indonesia</div>
     <div class="kpi-val">11 tweets</div>
@@ -1956,19 +2113,21 @@ function filterNews(filter, btn) {
       <span class="ktag ktag-x">Mercor</span>
     </div>
   </div>
-  <div class="kpi">
-    <div class="kpi-ico" style="width:36px;height:36px;border-radius:10px;background:#e8f0fe;display:flex;align-items:center;justify-content:center;flex-shrink:0">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1d4ed8" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="4"/><path d="M7 10v7M7 7v.01M11 17v-4a2 2 0 0 1 4 0v4M11 13v4"/></svg>
+  <div class="kpi kpi-li clickable" id="kpi-jul-li" onclick="selectSource('li','jul')">
+    <div class="kpi-ico">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="4"/><path d="M7 10v7M7 7v.01M11 17v-4a2 2 0 0 1 4 0v4M11 13v4"/></svg>
     </div>
     <div class="kpi-lbl">Post LinkedIn AI</div>
     <div class="kpi-val">7 posts</div>
     <div class="kpi-tags">
-      <span class="ktag" style="background:#e8f0fe;color:#1d4ed8">AI Governance RI</span>
-      <span class="ktag" style="background:#e8f0fe;color:#1d4ed8">Ekonomi Digital</span>
+      <span class="ktag ktag-li">AI Governance RI</span>
+      <span class="ktag ktag-li">Ekonomi Digital</span>
     </div>
   </div>
 </div>
 
+<!-- ═══ SECTIONS 2/3/4 JULI — hidden, shown inside modal ═══ -->
+<div id="jul-src-sections-hidden" style="display:none" aria-hidden="true">
 <!-- SECTION 2 JULI: BERITA -->
 <div class="sec-title">2 · Berita AI &amp; Cybersecurity Terverifikasi — 1–31 Juli 2026 (55 artikel)</div>
 
@@ -2554,6 +2713,8 @@ function filterNews(filter, btn) {
   </div>
 </div>
 
+</div><!-- /jul-src-sections-hidden -->
+
 <script>
 function toggleDateJul(header) {
   const body = header.nextElementSibling;
@@ -2596,9 +2757,9 @@ function filterNewsJul(filter, btn) {
 }
 </script>
 
+<div id="jul-twitter-linkedin-hidden" style="display:none" aria-hidden="true">
 <!-- SECTION 3 JULI: TWITTER -->
-<div class="sec-title">3 · X (Twitter)</div>
-<div class="card" style="margin-bottom:12px">
+<div id="jul-twitter-card-src" class="card" style="margin-bottom:12px">
   <div class="card-title">11 Tweet</div>
   <table class="news-table">
     <thead><tr><th>Tanggal</th><th>Akun</th><th>Tweet</th><th>Views</th><th>Likes</th><th>RT</th></tr></thead>
@@ -2675,8 +2836,7 @@ function filterNewsJul(filter, btn) {
 </div>
 
 <!-- SECTION 4 JULI: LINKEDIN -->
-<div class="sec-title">4 · LinkedIn</div>
-<div class="card" style="margin-bottom:12px">
+<div id="jul-linkedin-card-src" class="card" style="margin-bottom:12px">
   <div class="card-title">7 Post</div>
   <table class="news-table">
     <thead><tr><th>Tanggal</th><th>Akun / Profil</th><th>Post</th><th>Views/Reactions</th><th>Comments</th><th>Reposts</th></tr></thead>
@@ -2728,38 +2888,39 @@ function filterNewsJul(filter, btn) {
   <div style="font-size:11px;color:#9ca3af;margin-top:8px">Data real dari LinkedIn MCP — dicrawl Juli 2026. Baris merah = ancaman siber kritis. Post sorted by views/reactions descending.</div>
 </div>
 
+</div><!-- /jul-twitter-linkedin-hidden -->
+
 <!-- SECTION 5 JULI: SENTIMENT -->
-<div class="sec-title">5 · Analisis Sentimen</div>
+<div class="sec-title">2 · Analisis Sentimen</div>
 <div class="three-col">
   <div class="card">
     <div class="card-title">Sentimen Terverifikasi</div>
-    <div class="donut-area">
-      <svg width="148" height="148" viewBox="0 0 140 140">
+    <!-- TOP HALF: pie chart centered -->
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding-bottom:10px;border-bottom:1px solid #f0f2f5">
+      <svg width="160" height="160" viewBox="0 0 140 140">
         <g transform="rotate(-90 70 70)">
           <circle cx="70" cy="70" r="54" fill="none" stroke="#f0f2f5" stroke-width="22"/>
-          <!-- 59% positif: 59/100 * 339.29 = 200.2 -->
           <circle cx="70" cy="70" r="54" fill="none" stroke="#16a34a" stroke-width="22"
             stroke-dasharray="200.2 339.29" stroke-dashoffset="0"/>
-          <!-- 21% netral: 21/100 * 339.29 = 71.2 -->
           <circle cx="70" cy="70" r="54" fill="none" stroke="#9ca3af" stroke-width="22"
             stroke-dasharray="71.2 339.29" stroke-dashoffset="-200.2"/>
-          <!-- 21% negatif: 21/100 * 339.29 = 71.2 -->
           <circle cx="70" cy="70" r="54" fill="none" stroke="#ef4444" stroke-width="22"
             stroke-dasharray="71.2 339.29" stroke-dashoffset="-271.4"/>
         </g>
         <text x="70" y="65" text-anchor="middle" font-size="18" font-weight="700" fill="#1f2328">59%</text>
         <text x="70" y="82" text-anchor="middle" font-size="11" fill="#57606a">Positif</text>
       </svg>
-      <ul class="dl">
-        <li><div class="dl-dot" style="background:#16a34a"></div><span class="dl-lbl">Positif</span><span class="dl-pct pct-g">59% (43 item)</span></li>
-        <li><div class="dl-dot" style="background:#9ca3af"></div><span class="dl-lbl">Netral</span><span class="dl-pct pct-gr">21% (15 item)</span></li>
-        <li><div class="dl-dot" style="background:#ef4444"></div><span class="dl-lbl">Negatif</span><span class="dl-pct pct-r">21% (15 item)</span></li>
+      <ul class="dl" style="display:flex;gap:14px;margin-top:8px">
+        <li style="margin-bottom:0"><div class="dl-dot" style="background:#16a34a"></div><span class="dl-lbl">Positif</span><span class="dl-pct pct-g">59%</span></li>
+        <li style="margin-bottom:0"><div class="dl-dot" style="background:#9ca3af"></div><span class="dl-lbl">Netral</span><span class="dl-pct pct-gr">21%</span></li>
+        <li style="margin-bottom:0"><div class="dl-dot" style="background:#ef4444"></div><span class="dl-lbl">Negatif</span><span class="dl-pct pct-r">21%</span></li>
       </ul>
     </div>
-    <div class="net-box">
-      <div class="net-score-row">
-        <span class="net-score good">+38</span>
-        <span class="net-label">Net Sentiment Score</span>
+    <!-- BOTTOM HALF: net score -->
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding-top:10px">
+      <div class="net-score-row" style="margin-bottom:8px">
+        <span class="net-score good" style="font-size:32px">+38</span>
+        <span class="net-label" style="font-size:12px">Net Sentiment Score</span>
         <span class="net-badge good">✅ Positif Kuat</span>
       </div>
       <div class="net-track">
@@ -2769,7 +2930,21 @@ function filterNewsJul(filter, btn) {
         <div class="net-fill good" style="width:38%"></div>
       </div>
       <div class="net-lbls"><span>-100</span><span>0</span><span>+100</span></div>
-      <div class="net-desc">Dihitung dari 73 item terverifikasi Juli 2026: <b>59% – 21% = +38</b>.</div>
+      <div class="net-desc" style="margin-top:8px">Dihitung dari <b>73 item</b> terverifikasi Juli 2026: <b>59% – 21% = +38</b>.</div>
+      <div style="display:flex;gap:16px;margin-top:10px;font-size:12px">
+        <div style="flex:1;text-align:center;background:#f0fdf4;border-radius:6px;padding:6px 4px">
+          <div style="font-weight:700;color:#16a34a;font-size:15px">43</div>
+          <div style="color:#57606a;font-size:10px;margin-top:1px">Positif</div>
+        </div>
+        <div style="flex:1;text-align:center;background:#f9fafb;border-radius:6px;padding:6px 4px">
+          <div style="font-weight:700;color:#6b7280;font-size:15px">15</div>
+          <div style="color:#57606a;font-size:10px;margin-top:1px">Netral</div>
+        </div>
+        <div style="flex:1;text-align:center;background:#fef2f2;border-radius:6px;padding:6px 4px">
+          <div style="font-weight:700;color:#dc2626;font-size:15px">15</div>
+          <div style="color:#57606a;font-size:10px;margin-top:1px">Negatif</div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -2820,37 +2995,37 @@ function filterNewsJul(filter, btn) {
       </div>
       <div class="psent-pct"><span class="pg">71% pos (5)</span><span>14% netral (1)</span><span class="pr">14% neg (1)</span></div>
     </div>
-    <div class="insight-box" style="margin-top:12px"><b>Insight:</b><ul style="margin:6px 0 0 0;padding-left:18px;line-height:1.7">
+    <div class="insight-box" style="margin-top:8px"><b>Insight:</b><ul style="margin:5px 0 0 0;padding-left:16px;line-height:1.65">
       <li>Pendorong utama: Stranas KA, investasi Microsoft, dan narasi "AI Kunci Ekonomi RI"</li>
       <li>Kompas mendominasi dengan 47 artikel (terbanyak)</li>
       <li>LinkedIn paling optimistis (71% positif)</li>
     </ul></div>
   </div>
 
-  <div class="card">
-    <div class="card-title">Top 3 Berita Terbesar</div>
-    <div style="display:flex;flex-direction:column;gap:10px">
-      <div style="border-left:3px solid #16a34a;padding:8px 12px;background:#f0fdf4;border-radius:0 6px 6px 0;outline:1.5px solid #bbf7d0">
-        <div style="font-size:11px;color:#16a34a;font-weight:600">1 Jul 2026 — CNBC Indonesia</div>
-        <div style="font-weight:700;font-size:13px;color:#15803d">Stranas Kecerdasan Artifisial 2026–2030 Resmi Diluncurkan</div>
-        <div style="font-size:12px;color:#374151">Pemerintah RI luncurkan roadmap AI nasional 5 tahun. Prioritas: kesehatan, pendidikan, pertanian, keuangan, smart city. Fondasi kebijakan AI Indonesia era baru.</div>
+  <div class="card" style="padding:12px 14px">
+    <div class="card-title" style="font-size:11px;margin-bottom:8px">Top 3 Berita Terbesar</div>
+    <div style="display:flex;flex-direction:column;gap:6px;flex:1;justify-content:space-between">
+      <div style="border-left:3px solid #16a34a;padding:8px 10px;background:#f0fdf4;border-radius:0 5px 5px 0;outline:1px solid #bbf7d0;flex:1;display:flex;flex-direction:column;justify-content:center">
+        <div style="font-size:10px;color:#16a34a;font-weight:600;line-height:1.4">1 Jul 2026 — CNBC Indonesia</div>
+        <div style="font-weight:700;font-size:12px;color:#15803d;line-height:1.3;margin-top:2px">Stranas Kecerdasan Artifisial 2026–2030 Resmi Diluncurkan</div>
+        <div style="font-size:11px;color:#57606a;margin-top:3px;line-height:1.45">Pemerintah RI luncurkan roadmap AI nasional 5 tahun. Prioritas: kesehatan, pendidikan, pertanian, keuangan, smart city.</div>
       </div>
-      <div style="border-left:3px solid #16a34a;padding:8px 12px;background:#f0fdf4;border-radius:0 6px 6px 0">
-        <div style="font-size:11px;color:#16a34a;font-weight:600">3 Jul 2026 — CNBC Indonesia + LinkedIn</div>
-        <div style="font-weight:700;font-size:13px;color:#15803d">Microsoft Investasi Rp 277 Triliun untuk Infrastruktur AI Indonesia</div>
-        <div style="font-size:12px;color:#374151">Cloud + AI Center + Training 840.000 developer Indonesia. Terbesar sepanjang sejarah investasi Microsoft di RI. CoreWeave ekspansi 360 MW menyusul.</div>
+      <div style="border-left:3px solid #16a34a;padding:8px 10px;background:#f0fdf4;border-radius:0 5px 5px 0;outline:1px solid #bbf7d0;flex:1;display:flex;flex-direction:column;justify-content:center">
+        <div style="font-size:10px;color:#16a34a;font-weight:600;line-height:1.4">3 Jul 2026 — CNBC Indonesia + LinkedIn</div>
+        <div style="font-weight:700;font-size:12px;color:#15803d;line-height:1.3;margin-top:2px">Microsoft Investasi Rp 277 Triliun untuk Infrastruktur AI Indonesia</div>
+        <div style="font-size:11px;color:#57606a;margin-top:3px;line-height:1.45">Cloud + AI Center + Training 840.000 developer Indonesia. Terbesar sepanjang sejarah investasi Microsoft di RI.</div>
       </div>
-      <div style="border-left:3px solid #dc2626;padding:8px 12px;background:#fef2f2;border-radius:0 6px 6px 0">
-        <div style="font-size:11px;color:#dc2626;font-weight:600">5 Jul 2026 — CNBC Indonesia + BSSN</div>
-        <div style="font-weight:700;font-size:13px;color:#dc2626">Ancaman Siber Berbasis AI Meningkat 400% di ASEAN</div>
-        <div style="font-size:12px;color:#374151">BSSN siagakan 3 lapis pertahanan siber nasional. Indonesia sebagai Data Center #5 ASEAN menjadi target prioritas serangan AI-driven.</div>
+      <div style="border-left:3px solid #dc2626;padding:8px 10px;background:#fef2f2;border-radius:0 5px 5px 0;outline:1px solid #fecaca;flex:1;display:flex;flex-direction:column;justify-content:center">
+        <div style="font-size:10px;color:#dc2626;font-weight:600;line-height:1.4">5 Jul 2026 — CNBC Indonesia + BSSN</div>
+        <div style="font-weight:700;font-size:12px;color:#dc2626;line-height:1.3;margin-top:2px">Ancaman Siber Berbasis AI Meningkat 400% di ASEAN</div>
+        <div style="font-size:11px;color:#57606a;margin-top:3px;line-height:1.45">BSSN siagakan 3 lapis pertahanan siber nasional. Indonesia Data Center #5 ASEAN jadi target prioritas serangan AI-driven.</div>
       </div>
     </div>
   </div>
 </div>
 
 <!-- SECTION 6 JULI: TOPIK -->
-<div class="sec-title">6 · Topik Dominan</div>
+<div class="sec-title">3 · Topik Dominan</div>
 <div class="topic-grid">
   <div class="topic-card">
     <div class="topic-hd">
@@ -2944,7 +3119,7 @@ function filterNewsJul(filter, btn) {
 </div>
 
 <!-- SECTION 7 JULI: STRATEGY -->
-<div class="sec-title">7 · Strategic Marketing Opportunities — Juli 2026</div>
+<div class="sec-title">4 · Strategic Marketing Opportunities</div>
 <div class="strat-grid">
   <div class="strat-card red">
     <div class="strat-card-banner">
@@ -3015,7 +3190,7 @@ function filterNewsJul(filter, btn) {
 </div>
 
 <!-- SECTION 8 JULI: IBM SOLUTIONS -->
-<div class="sec-title">8 · Rekomendasi Solusi IBM — Disesuaikan dengan Peluang Juli 2026</div>
+<div class="sec-title">5 · Rekomendasi Solusi IBM — Disesuaikan dengan Peluang Juli 2026</div>
 
 <div class="ibm-opp-card">
   <div class="ibm-opp-header red">
@@ -3137,8 +3312,8 @@ function filterNewsJul(filter, btn) {
 </div>
 
 <div class="footer">
-  Data real hasil crawl langsung · <span>Periode 1–31 Juli 2026 · Diverifikasi: Agustus 2026</span> · Sumber: kompas.com, cnbcindonesia.com, detik.com, X/Twitter, LinkedIn<br>
-  <span style="font-size:11px;color:#c4c9d1">Made with IBM Bob — Zero Dummy Data · 73 item terverifikasi (55 artikel + 11 tweet + 7 LinkedIn) · Periode Juli 2026 (update lengkap 1–31 Juli)</span>
+  Data real hasil crawl langsung · Sumber: kompas.com, cnbcindonesia.com, detik.com, X/Twitter, LinkedIn<br>
+  <span style="font-size:11px;color:#c4c9d1">Made with IBM Bob — Zero Dummy Data</span>
 </div>
 
 </div><!-- end #period-jul -->
@@ -3174,6 +3349,403 @@ function switchPeriod(period) {
   }
   // Scroll to top smoothly
   window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SOURCE DETAIL MODAL
+     ═══════════════════════════════════════════════════════════════ -->
+<style>
+/* Modal overlay */
+.src-modal-overlay{position:fixed;inset:0;background:rgba(13,27,42,.55);z-index:900;opacity:0;pointer-events:none;transition:opacity .22s ease}
+.src-modal-overlay.open{opacity:1;pointer-events:all}
+
+/* Drawer panel — slides in from right */
+.src-modal-panel{position:fixed;top:0;right:0;height:100vh;width:min(820px,100vw);background:#f0f2f5;z-index:901;transform:translateX(100%);transition:transform .26s cubic-bezier(.22,.68,0,1.1);display:flex;flex-direction:column;overflow:hidden;box-shadow:-8px 0 32px rgba(0,0,0,.18)}
+.src-modal-panel.open{transform:translateX(0)}
+
+/* Modal header */
+.src-modal-hd{background:#0d1b2a;padding:16px 22px;display:flex;align-items:center;gap:14px;flex-shrink:0}
+.src-modal-back{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:6px 14px;font-size:13px;font-weight:600;color:#fff;cursor:pointer;display:flex;align-items:center;gap:6px;transition:background .15s;white-space:nowrap}
+.src-modal-back:hover{background:rgba(255,255,255,.2)}
+.src-modal-hd-info{flex:1;min-width:0}
+.src-modal-title{font-size:17px;font-weight:700;color:#fff;line-height:1.2}
+.src-modal-subtitle{font-size:12px;color:#8fa8be;margin-top:2px}
+.src-modal-badge{border-radius:20px;padding:4px 14px;font-size:12px;font-weight:700;flex-shrink:0}
+.smb-kp{background:#fff7ed;color:#c2410c}
+.smb-cn{background:#f0fdf4;color:#15803d}
+.smb-dk{background:#fef2f2;color:#dc2626}
+.smb-x{background:#e0f7ff;color:#0369a1}
+.smb-li{background:#e8f0fe;color:#1d4ed8}
+
+/* Sentiment bar inside modal header */
+.src-modal-sent-bar{display:flex;align-items:center;gap:10px;margin-top:8px;flex-wrap:wrap}
+.smsb-item{font-size:11px;color:#d1d5db;display:flex;align-items:center;gap:4px}
+.smsb-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+
+/* Modal filter bar */
+.src-modal-filters{background:#fff;padding:10px 18px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;border-bottom:1px solid #e5e7eb;flex-shrink:0}
+.smf-label{font-size:11px;font-weight:700;color:#57606a;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap}
+.smf-btn{border:1.5px solid #e5e7eb;border-radius:20px;padding:3px 12px;font-size:12px;font-weight:600;cursor:pointer;background:#fff;color:#374151;transition:all .15s;white-space:nowrap}
+.smf-btn:hover{border-color:#7c3aed;color:#7c3aed}
+.smf-btn.active{background:#7c3aed;border-color:#7c3aed;color:#fff}
+.smf-btn.f-pos.active{background:#16a34a;border-color:#16a34a}
+.smf-btn.f-neg.active{background:#dc2626;border-color:#dc2626}
+.smf-btn.f-neu.active{background:#6b7280;border-color:#6b7280}
+.smf-sep{width:1px;height:16px;background:#e5e7eb;flex-shrink:0}
+.smf-count{margin-left:auto;font-size:12px;color:#57606a;background:#f0f2f5;padding:3px 11px;border-radius:20px;font-weight:600;white-space:nowrap}
+
+/* Modal content scroll area */
+.src-modal-body{flex:1;overflow-y:auto;padding:16px 18px;scroll-behavior:smooth}
+
+/* Date dropdown row */
+.date-dd-row{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.date-dd-label{font-size:11px;font-weight:700;color:#57606a;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap}
+.date-dd-select{border:1.5px solid #e5e7eb;border-radius:8px;padding:5px 32px 5px 12px;font-size:13px;font-weight:600;color:#374151;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2.5' stroke-linecap='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") no-repeat right 10px center;appearance:none;-webkit-appearance:none;cursor:pointer;transition:border-color .15s,box-shadow .15s;min-width:140px}
+.date-dd-select:focus{outline:none;border-color:#7c3aed;box-shadow:0 0 0 3px rgba(124,58,237,.1)}
+.date-dd-select:hover{border-color:#7c3aed}
+
+/* modal scrollbar thin */
+.src-modal-body::-webkit-scrollbar{width:5px}
+.src-modal-body::-webkit-scrollbar-track{background:transparent}
+.src-modal-body::-webkit-scrollbar-thumb{background:#d1d5db;border-radius:4px}
+</style>
+
+<!-- Modal markup -->
+<div class="src-modal-overlay" id="src-modal-overlay" onclick="closeSourceModal()"></div>
+<div class="src-modal-panel" id="src-modal-panel" role="dialog" aria-modal="true">
+
+  <!-- Modal header -->
+  <div class="src-modal-hd">
+    <button class="src-modal-back" onclick="closeSourceModal()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Kembali
+    </button>
+    <div class="src-modal-hd-info">
+      <div class="src-modal-title" id="smd-title">—</div>
+      <div class="src-modal-subtitle" id="smd-subtitle">—</div>
+      <div class="src-modal-sent-bar" id="smd-sent-bar"></div>
+    </div>
+    <span class="src-modal-badge" id="smd-badge">—</span>
+  </div>
+
+  <!-- Sentiment + filter bar (articles only) -->
+  <div class="src-modal-filters" id="smd-filter-bar">
+    <span class="smf-label">Sentimen:</span>
+    <button class="smf-btn active" data-smf="all"    onclick="modalFilterSent('all',this)">Semua</button>
+    <button class="smf-btn f-pos" data-smf="pos"    onclick="modalFilterSent('pos',this)">✅ Positif</button>
+    <button class="smf-btn f-neg" data-smf="neg"    onclick="modalFilterSent('neg',this)">⚠️ Negatif</button>
+    <button class="smf-btn f-neu" data-smf="neu"    onclick="modalFilterSent('neu',this)">— Netral</button>
+    <span class="smf-sep"></span>
+    <span class="smf-count" id="smd-count">0 berita</span>
+  </div>
+
+  <!-- Scrollable body -->
+  <div class="src-modal-body" id="smd-body">
+    <!-- content injected by JS -->
+  </div>
+</div>
+
+<script>
+/* ─────────────────────────────────────────────────────
+   SOURCE MODAL — open / close / filter
+   ───────────────────────────────────────────────────── */
+
+// Source metadata — keyed by "src" for Agustus, "src-jul" for Juli
+const SRC_META = {
+  // ── Agustus 2026 ──────────────────────────────────────
+  kp: {
+    title:    'Artikel AI — Kompas',
+    subtitle: 'tekno.kompas.com · kompas.com/edu · money.kompas.com',
+    count:    '42 artikel',
+    badgeCls: 'smb-kp',
+    sentBar:  [{c:'#16a34a',lbl:'Positif 42% (18)'},{c:'#9ca3af',lbl:'Netral 28% (12)'},{c:'#dc2626',lbl:'Negatif 30% (13)'}],
+    type: 'articles', period: 'agu', filterKey: 'kp',
+  },
+  cn: {
+    title:    'Artikel AI — CNBC Indonesia',
+    subtitle: 'cnbcindonesia.com/tech · cnbcindonesia.com/news',
+    count:    '24 artikel',
+    badgeCls: 'smb-cn',
+    sentBar:  [{c:'#16a34a',lbl:'Positif 29% (7)'},{c:'#9ca3af',lbl:'Netral 13% (3)'},{c:'#dc2626',lbl:'Negatif 58% (14)'}],
+    type: 'articles', period: 'agu', filterKey: 'cn',
+  },
+  dk: {
+    title:    'Artikel AI — Detik',
+    subtitle: 'inet.detik.com · detik.com/edu',
+    count:    '16 artikel',
+    badgeCls: 'smb-dk',
+    sentBar:  [{c:'#16a34a',lbl:'Positif 67% (10)'},{c:'#9ca3af',lbl:'Netral 7% (1)'},{c:'#dc2626',lbl:'Negatif 27% (4)'}],
+    type: 'articles', period: 'agu', filterKey: 'dk',
+  },
+  x: {
+    title:    'Tweet AI Indonesia — Agustus 2026',
+    subtitle: 'X (Twitter) · @turing · @akademicryptoid · dan lainnya',
+    count:    '13 tweets',
+    badgeCls: 'smb-x',
+    sentBar:  [{c:'#16a34a',lbl:'Positif 62% (8)'},{c:'#9ca3af',lbl:'Netral 38% (5)'},{c:'#dc2626',lbl:'Negatif 0% (0)'}],
+    type: 'twitter', period: 'agu', twitterId: 'twitter-card-src',
+  },
+  li: {
+    title:    'Post LinkedIn AI — Agustus 2026',
+    subtitle: 'LinkedIn · Executive · Practitioner · Global',
+    count:    '17 posts',
+    badgeCls: 'smb-li',
+    sentBar:  [{c:'#16a34a',lbl:'Positif 56% (10)'},{c:'#9ca3af',lbl:'Netral 22% (4)'},{c:'#dc2626',lbl:'Negatif 22% (4)'}],
+    type: 'linkedin', period: 'agu', linkedinId: 'linkedin-card-src',
+  },
+  // ── Juli 2026 ─────────────────────────────────────────
+  'kp-jul': {
+    title:    'Artikel AI — Kompas',
+    subtitle: 'tekno.kompas.com · money.kompas.com · 1–31 Juli 2026',
+    count:    '47 artikel',
+    badgeCls: 'smb-kp',
+    sentBar:  [{c:'#16a34a',lbl:'Positif 64% (30)'},{c:'#9ca3af',lbl:'Netral 21% (10)'},{c:'#dc2626',lbl:'Negatif 15% (7)'}],
+    type: 'articles', period: 'jul', filterKey: 'kp',
+  },
+  'cn-jul': {
+    title:    'Artikel AI — CNBC Indonesia',
+    subtitle: 'cnbcindonesia.com/tech · 1–31 Juli 2026',
+    count:    '5 artikel',
+    badgeCls: 'smb-cn',
+    sentBar:  [{c:'#16a34a',lbl:'Positif 60% (3)'},{c:'#9ca3af',lbl:'Netral 0% (0)'},{c:'#dc2626',lbl:'Negatif 40% (2)'}],
+    type: 'articles', period: 'jul', filterKey: 'cn',
+  },
+  'dk-jul': {
+    title:    'Artikel AI — Detik',
+    subtitle: 'inet.detik.com · 1–31 Juli 2026',
+    count:    '3 artikel',
+    badgeCls: 'smb-dk',
+    sentBar:  [{c:'#16a34a',lbl:'Positif 67% (2)'},{c:'#9ca3af',lbl:'Netral 0% (0)'},{c:'#dc2626',lbl:'Negatif 33% (1)'}],
+    type: 'articles', period: 'jul', filterKey: 'dk',
+  },
+  'x-jul': {
+    title:    'Tweet AI Indonesia — Juli 2026',
+    subtitle: 'X (Twitter) · @bimnttsion · @shmidtqq · dan lainnya',
+    count:    '11 tweets',
+    badgeCls: 'smb-x',
+    sentBar:  [{c:'#16a34a',lbl:'Positif 73% (8)'},{c:'#9ca3af',lbl:'Netral 18% (2)'},{c:'#dc2626',lbl:'Negatif 9% (1)'}],
+    type: 'twitter', period: 'jul', twitterId: 'jul-twitter-card-src',
+  },
+  'li-jul': {
+    title:    'Post LinkedIn AI — Juli 2026',
+    subtitle: 'LinkedIn · Airlangga · Fanky · Luis · dan lainnya',
+    count:    '7 posts',
+    badgeCls: 'smb-li',
+    sentBar:  [{c:'#16a34a',lbl:'Positif 71% (5)'},{c:'#9ca3af',lbl:'Netral 0% (0)'},{c:'#dc2626',lbl:'Negatif 29% (2)'}],
+    type: 'linkedin', period: 'jul', linkedinId: 'jul-linkedin-card-src',
+  },
+};
+
+let modalSentFilter  = 'all';
+let modalDateFilter  = 'all';
+let currentModalSrc  = null;
+let currentModalKey  = null; // full key e.g. 'kp', 'kp-jul'
+
+function openSourceModal(key) {
+  const meta = SRC_META[key];
+  if (!meta) return;
+  currentModalKey  = key;
+  currentModalSrc  = key;
+  modalSentFilter  = 'all';
+  modalDateFilter  = 'all';
+
+  // Populate header
+  document.getElementById('smd-title').textContent    = meta.title;
+  document.getElementById('smd-subtitle').textContent = meta.subtitle;
+  document.getElementById('smd-badge').textContent    = meta.count;
+  document.getElementById('smd-badge').className      = 'src-modal-badge ' + meta.badgeCls;
+
+  // Sentiment bar
+  document.getElementById('smd-sent-bar').innerHTML = meta.sentBar.map(s =>
+    `<span class="smsb-item"><span class="smsb-dot" style="background:${s.c}"></span>${s.lbl}</span>`
+  ).join('');
+
+  // Show/hide filter bar (articles only)
+  document.getElementById('smd-filter-bar').style.display = (meta.type === 'articles') ? '' : 'none';
+  document.querySelectorAll('[data-smf]').forEach(b => {
+    b.classList.toggle('active', b.dataset.smf === 'all');
+  });
+
+  renderModalBody(key);
+
+  document.getElementById('src-modal-overlay').classList.add('open');
+  document.getElementById('src-modal-panel').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeSourceModal() {
+  document.getElementById('src-modal-overlay').classList.remove('open');
+  document.getElementById('src-modal-panel').classList.remove('open');
+  document.body.style.overflow = '';
+  // Clear ALL KPI card active states (Agustus + Juli)
+  ['kp','cn','dk','x','li'].forEach(k => {
+    ['kpi-'+k, 'kpi-jul-'+k].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.classList.remove('kpi-active','kpi-active-kp','kpi-active-cn','kpi-active-dk','kpi-active-x','kpi-active-li');
+    });
+  });
+  activeSourceCard = null;
+  currentModalKey  = null;
+  currentModalSrc  = null;
+}
+
+document.addEventListener('keydown', function(e){
+  if (e.key === 'Escape' && currentModalKey) closeSourceModal();
+});
+
+/* ── Date dropdown filter ────────────────────────────── */
+function modalFilterDate(selectEl) {
+  modalDateFilter = selectEl.value;
+  applyModalFilters();
+}
+
+/* ── Sentiment filter ────────────────────────────────── */
+function modalFilterSent(sent, btn) {
+  modalSentFilter = (modalSentFilter === sent && sent !== 'all') ? 'all' : sent;
+  document.querySelectorAll('[data-smf]').forEach(b => {
+    b.classList.toggle('active', b.dataset.smf === modalSentFilter ||
+      (modalSentFilter === 'all' && b.dataset.smf === 'all'));
+  });
+  applyModalFilters();
+}
+
+/* ── Apply both filters ──────────────────────────────── */
+function applyModalFilters() {
+  const rows = document.querySelectorAll('#smd-body .news-row');
+  let visible = 0;
+  rows.forEach(row => {
+    const sentOk = modalSentFilter === 'all' || row.dataset.sent === modalSentFilter;
+    const dateOk = modalDateFilter === 'all' || String(row.dataset.date) === String(modalDateFilter);
+    const show   = sentOk && dateOk;
+    row.style.display = show ? '' : 'none';
+    if (show) visible++;
+  });
+  document.querySelectorAll('#smd-body .date-group').forEach(group => {
+    const hasVis = Array.from(group.querySelectorAll('.news-row')).some(r => r.style.display !== 'none');
+    group.style.display = hasVis ? '' : 'none';
+    if (hasVis) {
+      group.querySelector('.date-group-header').classList.add('open');
+      group.querySelector('.date-group-body').classList.add('open');
+    }
+  });
+  const countEl = document.getElementById('smd-count');
+  if (countEl) countEl.textContent = visible + ' berita';
+}
+
+/* ── Render modal body ───────────────────────────────── */
+function renderModalBody(key) {
+  const body = document.getElementById('smd-body');
+  const meta = SRC_META[key];
+  const isJul = (meta.period === 'jul');
+
+  if (meta.type === 'articles') {
+    // Pick the right hidden container
+    const hiddenId  = isJul ? '#jul-src-sections-hidden' : '#src-sections-hidden';
+    const srcCard   = document.querySelector(hiddenId + ' .news-unified-card');
+    if (!srcCard) { body.innerHTML = '<p style="color:#9ca3af;padding:20px">Konten tidak ditemukan.</p>'; return; }
+
+    // For Juli: rows use data-src-jul / data-sent-jul; for Agu: data-src / data-sent
+    const rowSel   = isJul ? '.jul-news-row' : '.news-row';
+    const srcAttr  = isJul ? 'srcJul'        : 'src';
+    const sentAttr = isJul ? 'sentJul'       : 'sent';
+    const grpSel   = isJul ? '.jul-date-group' : '.date-group[data-date]';
+    const dateAttr = isJul ? 'dateJul'        : 'date';
+
+    const allGroups = srcCard.querySelectorAll(grpSel);
+    const dates = Array.from(allGroups)
+      .map(g => isJul ? g.dataset.dateJul : g.dataset.date)
+      .filter(Boolean);
+    const monthLabel = isJul ? 'Juli' : 'Agustus';
+
+    // Date dropdown
+    const ddHtml = dates.length
+      ? `<div class="date-dd-row">
+           <span class="date-dd-label">Tanggal:</span>
+           <select class="date-dd-select" id="modal-date-select" onchange="modalFilterDate(this)">
+             <option value="all">Semua Tanggal</option>
+             ${dates.map(d => `<option value="${d}">${d} ${monthLabel}</option>`).join('')}
+           </select>
+         </div>`
+      : '';
+
+    // Build article groups — normalize all rows to .news-row + data-src + data-sent + data-date
+    const filterKey  = meta.filterKey;
+    const pillColor  = {kp:'dg-pill-kp', cn:'dg-pill-cn', dk:'dg-pill-dk'}[filterKey] || 'dg-pill-kp';
+    let articleGroupsHtml = '';
+
+    allGroups.forEach(group => {
+      const dateVal  = isJul ? group.dataset.dateJul : group.dataset.date;
+      const allRows  = Array.from(group.querySelectorAll(rowSel));
+      const srcRows  = allRows.filter(r => r.dataset[srcAttr] === filterKey);
+      if (!srcRows.length) return;
+
+      const dateLabel = group.querySelector('.dg-date')?.textContent || (dateVal + ' ' + monthLabel);
+      const rowsHtml  = srcRows.map(r => {
+        // Normalize: always use .news-row + data-src + data-sent + data-date for applyModalFilters
+        const clone = r.cloneNode(true);
+        clone.className = 'news-row' + (clone.classList.contains('is-new') ? ' is-new' : '');
+        clone.setAttribute('data-src',  filterKey);
+        clone.setAttribute('data-sent', r.dataset[sentAttr] || '');
+        clone.setAttribute('data-date', dateVal);
+        return clone.outerHTML;
+      }).join('');
+
+      articleGroupsHtml += `
+        <div class="date-group" data-date="${dateVal}">
+          <div class="date-group-header open" onclick="toggleDate(this)">
+            <span class="dg-date">${dateLabel}</span>
+            <div class="dg-summary">
+              <span class="dg-pill ${pillColor}">${srcRows.length} artikel</span>
+            </div>
+            <span class="dg-arrow">▼</span>
+          </div>
+          <div class="date-group-body open">${rowsHtml}</div>
+        </div>`;
+    });
+
+    const total = allGroups
+      ? Array.from(srcCard.querySelectorAll(rowSel)).filter(r => r.dataset[srcAttr] === filterKey).length
+      : 0;
+    body.innerHTML = ddHtml + (articleGroupsHtml || '<p style="color:#9ca3af;padding:12px 0">Tidak ada artikel dari sumber ini.</p>');
+    document.getElementById('smd-count').textContent = total + ' berita';
+
+  } else if (meta.type === 'twitter') {
+    const srcCard = document.getElementById(meta.twitterId);
+    if (!srcCard) { body.innerHTML = '<p>Konten tidak ditemukan.</p>'; return; }
+    body.innerHTML = srcCard.outerHTML;
+    document.getElementById('smd-filter-bar').style.display = 'none';
+
+  } else if (meta.type === 'linkedin') {
+    const srcCard = document.getElementById(meta.linkedinId);
+    if (!srcCard) { body.innerHTML = '<p>Konten tidak ditemukan.</p>'; return; }
+    body.innerHTML = srcCard.outerHTML;
+    document.getElementById('smd-filter-bar').style.display = 'none';
+  }
+}
+
+/* ── selectSource — called from KPI card onclick ─────── */
+// src   = 'kp'|'cn'|'dk'|'x'|'li'
+// period = 'agu' (default) | 'jul'
+function selectSource(src, period) {
+  period = period || 'agu';
+  const key    = period === 'jul' ? src + '-jul' : src;
+  const cardId = period === 'jul' ? 'kpi-jul-' + src : 'kpi-' + src;
+
+  // Clear all KPI card active states (both periods)
+  ['kp','cn','dk','x','li'].forEach(k => {
+    ['kpi-'+k, 'kpi-jul-'+k].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.classList.remove('kpi-active','kpi-active-kp','kpi-active-cn','kpi-active-dk','kpi-active-x','kpi-active-li');
+    });
+  });
+
+  // Highlight clicked card
+  activeSourceCard = key;
+  const card = document.getElementById(cardId);
+  if (card) card.classList.add('kpi-active', 'kpi-active-' + src);
+
+  openSourceModal(key);
 }
 </script>
 
